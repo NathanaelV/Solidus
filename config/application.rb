@@ -28,3 +28,33 @@ module SolidusStore
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
+
+module AmazingStore
+  class Application < Rails::Application
+    # ...
+
+    # Don't initialize FactoryBot if it's not in the current Bundler group.
+    if defined?(FactoryBotRails)
+      initializer after: 'factory_bot.set_factory_paths' do
+        require 'spree/testing_support/factory_bot'
+
+        # The paths for Solidus factories.
+        solidus_paths = Spree::TestingSupport::FactoryBot.definition_file_paths
+
+        # Optional: Any factories you want to require from extensions.
+        extension_paths = [
+          # MySolidusExtension::Engine.root.join("lib/solidus_content/factories/order.rb"),
+          # MySolidusExtension::Engine.root.join("lib/solidus_content/factories/product.rb"),
+        ]
+
+        # Your application's own factories.
+        app_paths = [
+          # Rails.root.join('lib/factories'),
+          Rails.root.join('spec/factories'),
+        ]
+
+        FactoryBot.definition_file_paths = solidus_paths + extension_paths + app_paths
+      end
+    end
+  end
+end
