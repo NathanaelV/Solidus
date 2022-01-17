@@ -58,3 +58,4 @@ module AmazingStore
     end
   end
 end
+
