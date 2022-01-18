@@ -36,3 +36,17 @@ RSpec.describe 'The product admin' do
   end
 end
 
+RSpec.describe 'The product admin' do
+  it 'displays the product SKU' do
+    sign_in create(:admin_user)
+    product1 = create(:product)
+    product2 = create(:product)
+
+    visit spree.admin_products_path
+
+    within_row(1) do
+      expect(column_text(1)).to eq(product1.sku)
+    end
+  end
+end
+
