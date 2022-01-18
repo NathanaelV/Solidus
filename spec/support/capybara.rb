@@ -66,5 +66,13 @@ RSpec.describe 'The orders admin' do
   end
 end
 
+RSpec.describe 'The product page' do
+  it 'uses the product description in the meta description' do
+    product = create(:product)
 
+    visit spree.product_path(product)
+
+    expect(page).to have_meta(:description, product.description)
+  end
+end
 
