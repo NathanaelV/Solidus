@@ -50,3 +50,21 @@ RSpec.describe 'The product admin' do
   end
 end
 
+RSpec.describe 'The orders admin' do
+  it 'allows me to filter by variant' do
+    sign_in create(:admin_user)
+    product = create(:product)
+    order = create(:order) do |o|
+      create(:line_item, order: o, variant: product.master)
+    end
+
+    visit spree.admin_orders_path
+    select2_search product.sku, from: 'Variant'
+    click_button 'Filter results'
+
+    expect(page).to have_content(order.number)
+  end
+end
+
+
+
