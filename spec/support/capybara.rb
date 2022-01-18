@@ -21,3 +21,18 @@ RSpec.describe 'The option types admin' do
     expect(page).to have_content('has been successfully removed')
   end
 end
+
+RSpec.describe 'The product admin' do
+  it 'allows me to edit a product' do
+    sign_in create(:admin_user)
+    product1 = create(:product)
+    product2 = create(:product)
+
+    visit spree.admin_products_path
+    # Clicks the edit icon for the first product
+    within_row(1) { click_icon 'edit' }
+
+    # ...
+  end
+end
+
