@@ -16,3 +16,26 @@ RSpec.describe 'The checkout flow' do
   end
 end
 
+RSpec.describe 'The product page' do
+  it 'renders the price in EUR' do
+    # Stub the global `currency` setting of the store
+    stub_spree_preferences(currency: 'EUR')
+    product = create(:product)
+
+    visit spree.product_path(product)
+
+    expect(page).to have_content('€100,00')
+  end
+
+  it 'renders the price in USD' do
+    # Stub the global `currency` setting of the store
+    stub_spree_preferences(currency: 'USD')
+    product = create(:product)
+
+    visit spree.product_path(product)
+
+    expect(page).to have_content('$100.00')
+  end
+end
+
+
