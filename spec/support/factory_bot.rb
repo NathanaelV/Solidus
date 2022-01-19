@@ -38,4 +38,23 @@ RSpec.describe 'The product page' do
   end
 end
 
+RSpec.describe 'The backend' do
+  it 'is available in English' do
+    # Stub the `locale` setting of the backend
+    stub_spree_preferences(Spree::Backend::Config, locale: 'en')
+
+    visit spree.admin_path
+
+    expect(page).to have_content('Email')
+  end
+
+  it 'is available in French' do
+    # Stub the `locale` setting of the backend
+    stub_spree_preferences(Spree::Backend::Config, locale: 'fr')
+
+    visit spree.admin_path
+
+    expect(page).to have_content('Courriel')
+  end
+end
 
