@@ -2,6 +2,8 @@ require 'spree/testing_support/authorization_helpers'
 
 require 'spree/testing_support/capybara_ext'
 
+require 'spree/testing_support/order_walkthrough'
+
 RSpec.describe 'The product admin' do
   stub_authorization!
 
