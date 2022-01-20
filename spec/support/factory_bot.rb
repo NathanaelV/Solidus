@@ -58,3 +58,13 @@ RSpec.describe 'The backend' do
   end
 end
 
+RSpec.describe 'The product page' do
+  it 'is accessible' do
+    product = create(:product)
+
+    visit spree.product_path(product)
+
+    expect(page).to have_content(product.name)
+  end
+end
+
