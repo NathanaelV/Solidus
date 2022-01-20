@@ -6,6 +6,12 @@ require 'spree/testing_support/order_walkthrough'
 
 require 'spree/testing_support/preferences'
 
+require 'spree/testing_support/url_helpers'
+
+RSpec.configure do |config|
+  config.include Spree::TestingSupport::UrlHelpers
+end
+
 RSpec.describe 'The product admin' do
   stub_authorization!
 
